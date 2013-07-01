@@ -26,10 +26,12 @@
 package net.umask.jmx2statsd;
 
 import javax.management.ObjectName;
+import java.util.Hashtable;
 
 
 public class DefaultStatdNamingStrategy implements StatdNamingStrategy {
     final private String applicationName;
+
 
     public DefaultStatdNamingStrategy(final String applicationName) {
         this.applicationName = applicationName;
@@ -41,13 +43,20 @@ public class DefaultStatdNamingStrategy implements StatdNamingStrategy {
     }
 
     private String canonicalize(ObjectName objectName) {
-        return objectName.getDomain() + "." +
-                objectName.getKeyPropertyListString()
-                        .replaceAll("\\.", "_")
+        final StringBuilder builder = new StringBuilder(1024);
+        builder.append(objectName.getDomain());
+
+        String keyPropertyList = objectName.getKeyPropertyListString();
+        String[] keyPropertyParts= keyPropertyList.split("\\,");
+        for(String part: keyPropertyParts){
+            builder.append('.').append(part.substring(part.indexOf('=')+1));
+        }
+        return builder.toString()
                         .replaceAll(",", "_")
                         .replaceAll("=", "_")
                         .replaceAll("/", "_")
                         .replaceAll(":", "_")
+                        .replaceAll("\"","")
                         .replaceAll(" ", "");
     }
 }

@@ -29,6 +29,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
+import java.util.Collections;
+
+import net.umask.jmx2statsd.filters.JavaLangFilter;
 
 /**
  * @author Jo Geraerts
@@ -50,8 +53,9 @@ public class JmxTreeWalkerTest {
     @Test
     public void testWalkTreeStatsd() throws InterruptedException, InvalidConfigurationException, IOException {
         JmxTreeWalker jmxTreeWalker = new JmxTreeWalker(ManagementFactory.getPlatformMBeanServer());
+        jmxTreeWalker.setObjectNameFilters(Collections.<ObjectNameFilter>singletonList(new JavaLangFilter()));
         long start = System.currentTimeMillis();
-        jmxTreeWalker.addMetricListener(new StatsdMetricListener(Config.parseArgs("host=127.0.0.1;port=8125")));
+        jmxTreeWalker.addMetricListener(new StatsdMetricListener(Config.loadFromProperties(this.getClass().getClassLoader().getResourceAsStream("jmx2statsd.properties"))));
         jmxTreeWalker.walk();
         long stop = System.currentTimeMillis();
         System.out.println(stop - start);

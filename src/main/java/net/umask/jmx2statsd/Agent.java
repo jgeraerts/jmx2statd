@@ -25,6 +25,7 @@
 
 package net.umask.jmx2statsd;
 
+import java.io.FileInputStream;
 import java.lang.instrument.Instrumentation;
 import java.lang.management.ManagementFactory;
 
@@ -33,8 +34,9 @@ public class Agent {
 
     public static void premain(String args, Instrumentation inst) throws Exception {
         try {
-            Config config = Config.parseArgs(args);
+            Config config = Config.loadFromProperties(new FileInputStream(args));
             JmxTreeWalker jmxTreeWalker = new JmxTreeWalker(ManagementFactory.getPlatformMBeanServer());
+            jmxTreeWalker.setObjectNameFilters(config.getFilters());
             jmxTreeWalker.addMetricListener(new StatsdMetricListener(config));
             Thread d = new Thread(new JmxTreeWalkerRunner(jmxTreeWalker, config.getInterval()));
             d.setName("Jmx2Statsd Thread");
@@ -43,7 +45,6 @@ public class Agent {
         } catch (InvalidConfigurationException e) {
             System.err.println(e.getMessage());
             e.printStackTrace(System.err);
-
         }
     }
 }

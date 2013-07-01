@@ -25,6 +25,8 @@
 
 package net.umask.jmx2statsd;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -37,31 +39,9 @@ import static junit.framework.Assert.assertEquals;
  */
 public class ConfigTest {
 
-    @Test
-    public void parseArgsTestValid() throws InvalidConfigurationException {
-        Config c = Config.parseArgs("host=127.0.0.1;port=8125");
-        assertEquals("127.0.0.1", c.getHost().getHostAddress());
-        assertEquals(8125, c.getPort());
-    }
 
-    @Test(expected = InvalidConfigurationException.class)
-    public void parseArgsNoPort() throws InvalidConfigurationException {
-        Config.parseArgs("host=127.0.0.1");
-    }
-
-    @Test(expected = InvalidConfigurationException.class)
-    public void parseArgsNoHost() throws InvalidConfigurationException {
-        Config.parseArgs("port=8125");
-    }
-
-    @Test(expected = InvalidConfigurationException.class)
-    public void parseArgsInvalidHostAddress() throws InvalidConfigurationException {
-        Config.parseArgs("host=1111.111.123.2,port=8125");
-    }
-
-    @Test(expected = InvalidConfigurationException.class)
-    public void parseArgsInvalidHostNotFound() throws InvalidConfigurationException {
-        Config.parseArgs("host=non.existing.host.local,port=8125");
+    public void loadConfigFromProperties() throws IOException, InvalidConfigurationException {
+        Config.loadFromProperties(this.getClass().getClassLoader().getResourceAsStream("jmx2statsd.properties"));
     }
 
 

@@ -37,6 +37,7 @@ import java.util.Set;
 public class JmxTreeWalker {
     private MBeanServerConnection mbeanServer;
     private List<MetricListener> listeners = new ArrayList<MetricListener>();
+    private List<ObjectNameFilter> filters = new ArrayList<ObjectNameFilter>();
 
     public JmxTreeWalker(MBeanServerConnection platformMBeanServer) {
 
@@ -56,9 +57,21 @@ public class JmxTreeWalker {
     private List<Metric> walkObjectNames(Set<ObjectName> objectNames) throws InstanceNotFoundException, IOException, ReflectionException, IntrospectionException, AttributeNotFoundException, MBeanException {
         List<Metric> metrics = new LinkedList<Metric>();
         for (ObjectName n : objectNames) {
-            walkAttributes(n, mbeanServer.getMBeanInfo(n).getAttributes(), metrics);
+            if(isAccepted(n)){
+                walkAttributes(n, mbeanServer.getMBeanInfo(n).getAttributes(), metrics);
+            }
         }
         return metrics;
+    }
+
+    private boolean isAccepted(ObjectName n) {
+        for(ObjectNameFilter filter : filters){
+            final boolean result = filter.accept(n);
+            if(result){
+                return true;
+            }
+        }
+        return false;
     }
 
     private void walkAttributes(ObjectName n, MBeanAttributeInfo[] attributes, List<Metric> metrics) {
@@ -90,6 +103,10 @@ public class JmxTreeWalker {
         for (MetricListener listener : listeners) {
             listener.emit(metrics);
         }
+    }
+
+    public void setObjectNameFilters(List<ObjectNameFilter> filters){
+        this.filters = filters;
     }
 
 

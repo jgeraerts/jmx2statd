@@ -37,7 +37,7 @@ public class StatsdMetricListenerTest {
     @Test
     public void testEmit() throws MalformedObjectNameException, InvalidConfigurationException, IOException {
         Metric m = new Metric(new ObjectName("java.lang:type=Mekker"), "committed", null, 10);
-        StatsdMetricListener listener = new StatsdMetricListener(Config.parseArgs("host=127.0.0.1;port=8125"));
+        StatsdMetricListener listener = new StatsdMetricListener(Config.loadFromProperties(this.getClass().getClassLoader().getResourceAsStream("jmx2statsd.properties")));
         listener.emit(Arrays.asList(m));
 
     }
