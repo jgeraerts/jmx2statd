@@ -37,7 +37,7 @@ public class StatsdMetricListener implements MetricListener {
     public static final int BUFFERSIZE = 1024;
     final StatdNamingStrategy statdNamingStrategy;
     final private InetSocketAddress _address;
-    final private DatagramChannel _channel;
+    private DatagramChannel _channel;
 
     public StatsdMetricListener(Config config) throws IOException {
         statdNamingStrategy = new DefaultStatdNamingStrategy(config.getApplicationName());
@@ -77,6 +77,9 @@ public class StatsdMetricListener implements MetricListener {
 
     private void flush(byte[] bytes) {
         try {
+            if (!_channel.isOpen()) {
+                _channel = DatagramChannel.open();
+            }
             _channel.send(ByteBuffer.wrap(bytes), _address);
         } catch (IOException e) {
             e.printStackTrace(System.err);
