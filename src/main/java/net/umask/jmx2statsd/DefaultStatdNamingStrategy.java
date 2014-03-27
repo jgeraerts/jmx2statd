@@ -26,7 +26,6 @@
 package net.umask.jmx2statsd;
 
 import javax.management.ObjectName;
-import java.util.Hashtable;
 
 
 public class DefaultStatdNamingStrategy implements StatdNamingStrategy {
@@ -47,16 +46,16 @@ public class DefaultStatdNamingStrategy implements StatdNamingStrategy {
         builder.append(objectName.getDomain());
 
         String keyPropertyList = objectName.getKeyPropertyListString();
-        String[] keyPropertyParts= keyPropertyList.split("\\,");
-        for(String part: keyPropertyParts){
-            builder.append('.').append(part.substring(part.indexOf('=')+1));
+        String[] keyPropertyParts = keyPropertyList.split("\\,");
+        for (String part : keyPropertyParts) {
+            builder.append('.').append(part.substring(part.indexOf('=') + 1));
         }
         return builder.toString()
-                        .replaceAll(",", "_")
-                        .replaceAll("=", "_")
-                        .replaceAll("/", "_")
-                        .replaceAll(":", "_")
-                        .replaceAll("\"","")
-                        .replaceAll(" ", "");
+                .replaceAll(",", "_")
+                .replaceAll("=", "_")
+                .replaceAll("/", "_")
+                .replaceAll(":", "_")
+                .replaceAll("\"", "")
+                .replaceAll(" ", "");
     }
 }

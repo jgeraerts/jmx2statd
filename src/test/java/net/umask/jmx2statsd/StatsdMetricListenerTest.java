@@ -25,12 +25,12 @@
 
 package net.umask.jmx2statsd;
 
-import org.junit.Test;
-
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import java.io.IOException;
 import java.util.Arrays;
+
+import org.junit.Test;
 
 public class StatsdMetricListenerTest {
 

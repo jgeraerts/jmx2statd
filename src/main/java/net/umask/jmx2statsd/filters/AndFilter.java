@@ -18,9 +18,9 @@ public class AndFilter implements ObjectNameFilter {
 
     @Override
     public boolean accept(ObjectName objectName) {
-        for(ObjectNameFilter filter: filters){
+        for (ObjectNameFilter filter : filters) {
             final boolean result = filter.accept(objectName);
-            if(!result){
+            if (!result) {
                 return false;
             }
         }

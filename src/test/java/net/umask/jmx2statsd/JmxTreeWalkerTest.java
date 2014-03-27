@@ -25,11 +25,11 @@
 
 package net.umask.jmx2statsd;
 
-import org.junit.Test;
-
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.util.Collections;
+
+import org.junit.Test;
 
 import net.umask.jmx2statsd.filters.JavaLangFilter;
 

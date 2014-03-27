@@ -27,10 +27,6 @@ package net.umask.jmx2statsd;
 
 import java.io.IOException;
 
-import org.junit.Test;
-
-import static junit.framework.Assert.assertEquals;
-
 /**
  * Created with IntelliJ IDEA.
  * User: JoGeraerts

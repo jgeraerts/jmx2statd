@@ -7,7 +7,7 @@ import javax.management.ObjectName;
  * Date: 1/07/13
  * Time: 18:04
  */
-public interface ObjectNameFilter  {
+public interface ObjectNameFilter {
 
     boolean accept(ObjectName objectName);
 

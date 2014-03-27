@@ -28,7 +28,6 @@ package net.umask.jmx2statsd;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -64,11 +63,9 @@ public class Config {
         return this.applicationName;
     }
 
-
-    public static Config loadFromProperties(InputStream resourceAsStream) throws IOException, InvalidConfigurationException {
-        final Properties props = new Properties();
-        props.load(resourceAsStream);
+    public static Config loadFromProperties(Properties props) throws IOException, InvalidConfigurationException {
         ConfigBuilder builder = new ConfigBuilder();
+
         builder.setHost(InetAddress.getByName(props.getProperty("statsd.host")));
         builder.setPort(Integer.parseInt(props.getProperty("statsd.port")));
         builder.setApplicationName(props.getProperty("applicationName"));
@@ -91,6 +88,12 @@ public class Config {
             }
         }
         return builder.build();
+    }
+
+    public static Config loadFromProperties(InputStream resourceAsStream) throws IOException, InvalidConfigurationException {
+        final Properties props = new Properties();
+        props.load(resourceAsStream);
+        return loadFromProperties(props);
     }
 
     public long getInterval() {

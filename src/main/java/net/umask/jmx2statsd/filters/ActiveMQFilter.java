@@ -14,15 +14,16 @@ import net.umask.jmx2statsd.ObjectNameFilter;
  */
 public class ActiveMQFilter extends DelegatingFilter {
     private static List<ObjectNameFilter> FILTERS = new ArrayList<ObjectNameFilter>();
+
     static {
         Set<String> values = new HashSet<String>();
         values.add("Topic");
         values.add("Queue");
         FILTERS.add(new SimpleDomainFilter("org.apache.activemq"));
-        FILTERS.add(new KeyPropertyValuesFilter("Type",values));
+        FILTERS.add(new KeyPropertyValuesFilter("Type", values));
     }
 
-    public ActiveMQFilter(){
+    public ActiveMQFilter() {
         super(new AndFilter(FILTERS));
     }
 }

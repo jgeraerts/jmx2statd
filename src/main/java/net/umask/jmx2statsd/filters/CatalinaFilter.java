@@ -14,15 +14,17 @@ import net.umask.jmx2statsd.ObjectNameFilter;
  */
 public class CatalinaFilter extends DelegatingFilter {
     private static List<ObjectNameFilter> FILTERS = new ArrayList<ObjectNameFilter>();
+
     static {
         Set<String> values = new HashSet<String>();
         values.add("GlobalRequestProcessor");
         values.add("Executor");
         values.add("Manager");
         FILTERS.add(new SimpleDomainFilter("Catalina"));
-        FILTERS.add(new KeyPropertyValuesFilter("type",values));
+        FILTERS.add(new KeyPropertyValuesFilter("type", values));
     }
-    public CatalinaFilter(){
+
+    public CatalinaFilter() {
         super(new AndFilter(FILTERS));
 
     }

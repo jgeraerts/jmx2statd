@@ -14,15 +14,16 @@ import net.umask.jmx2statsd.ObjectNameFilter;
  */
 public class CamelFilter extends DelegatingFilter {
     private static List<ObjectNameFilter> FILTERS = new ArrayList<ObjectNameFilter>();
+
     static {
         Set<String> values = new HashSet<String>();
         values.add("routes");
         values.add("context");
         FILTERS.add(new SimpleDomainFilter("org.apache.camel"));
-        FILTERS.add(new KeyPropertyValuesFilter("type",values));
+        FILTERS.add(new KeyPropertyValuesFilter("type", values));
     }
 
-    public CamelFilter(){
+    public CamelFilter() {
         super(new AndFilter(FILTERS));
     }
 }
