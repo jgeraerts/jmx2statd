@@ -28,7 +28,7 @@
 
     <groupId>net.umask</groupId>
     <artifactId>jmx2statsd</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <name>jmx2statsd</name>
     <packaging>jar</packaging>
 
@@ -51,7 +51,7 @@
         <url>https://github.com/jgeraerts/jmx2statsd</url>
         <connection>scm:git:https://github.com/jgeraerts/jmx2statsd.git</connection>
         <developerConnection>scm:git:git@github.com:jgeraerts/jmx2statsd.git</developerConnection>
-      <tag>jmx2statsd-1.0</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <developers>
