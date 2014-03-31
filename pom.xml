@@ -23,13 +23,12 @@
   ~ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.umask</groupId>
     <artifactId>jmx2statsd</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
     <name>jmx2statsd</name>
     <packaging>jar</packaging>
 
@@ -52,7 +51,8 @@
         <url>https://github.com/jgeraerts/jmx2statsd</url>
         <connection>scm:git:https://github.com/jgeraerts/jmx2statsd.git</connection>
         <developerConnection>scm:git:git@github.com:jgeraerts/jmx2statsd.git</developerConnection>
-    </scm>
+      <tag>jmx2statsd-1.0</tag>
+  </scm>
 
     <developers>
         <developer>
