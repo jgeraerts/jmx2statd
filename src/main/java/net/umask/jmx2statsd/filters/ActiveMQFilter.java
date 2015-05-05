@@ -2,6 +2,7 @@ package net.umask.jmx2statsd.filters;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,6 +27,11 @@ public class ActiveMQFilter extends DelegatingFilter {
                         Arrays.asList(
                                 new KeyPropertyValuesFilter("Type", values),
                                 new KeyPropertyValuesFilter("destinationType", values))
+                )
+        );
+        FILTERS.add(
+                new NotFilter(
+                        new KeyPropertyValuesFilter("endpoint", Collections.singleton("Consumer"))
                 )
         );
     }
